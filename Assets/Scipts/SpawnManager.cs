@@ -11,6 +11,7 @@ public class SpawnManager : MonoBehaviour
     public int maxPrefabs;
     public int maxRange;
     public int minRange;
+    
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
     {
@@ -63,6 +64,9 @@ public class SpawnManager : MonoBehaviour
         {
              if (!pooledObjects[i].activeInHierarchy)
             {
+                Renderer renderer = pooledObjects[i].GetComponent<Renderer>();
+                Color RamdonColor = new Color(Random.value,Random.value,Random.value);
+                renderer.material.color= RamdonColor;
                 return pooledObjects[i]; 
             }
         }
@@ -77,10 +81,13 @@ public class SpawnManager : MonoBehaviour
             if (prefab.activeInHierarchy)
             {
                 count++;
-                Debug.Log(count);
             }
         }
         return count;
         
+    }
+
+    public void DisablePrefabs(GameObject prefabDisable){
+        prefabDisable.SetActive(false);
     }
 }
